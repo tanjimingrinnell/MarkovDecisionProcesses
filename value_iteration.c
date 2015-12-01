@@ -11,7 +11,7 @@
 void value_iteration( const mdp* p_mdp, double epsilon, double gamma,
 		      double *utilities)
 {
-  // Run value iteration!
+  
 }
 
 
