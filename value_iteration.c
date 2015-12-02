@@ -11,7 +11,29 @@
 void value_iteration( const mdp* p_mdp, double epsilon, double gamma,
 		      double *utilities)
 {
+  double delta;
+
+  double * utilitiesPrime; // successor utilities
+  utilitiesPrime = malloc( sizeof(double) * p_mdp->numStates );
   
+  do {
+    delta = 0;
+    memcpy(utilities, utilitiesPrime, p_mdp->numStates);
+    
+    unsigned int state;
+    for (state = 0; state < p_mdp->numStates; state++) {
+      double meu = 0;
+      unsigned int action = 0;
+      calc_meu(p_mdp, state, utilities, &meu, &action);
+      printf("%f\n", meu);
+      utilitiesPrime[state] = p_mdp->rewards[state] + gamma*meu;
+
+      double utilChange = fabs(utilitiesPrime[state] - utilities[state]);
+      if (utilChange > delta) {
+        delta = utilChange;
+      }
+    }
+  } while (delta >= epsilon*(1-gamma)/gamma);
 }
 
 

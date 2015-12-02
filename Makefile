@@ -9,7 +9,7 @@ start: mdp
 utilities: mdp utilities.c utilities.h
 	gcc ${FLAGS} -c utilities.c
 
-value: mdp utilities value_iteration.c
+value: mdp value_iteration.c
 	gcc ${FLAGS} -o value_iteration value_iteration.c  mdp.o utilities.o
 
 policy: mdp utilities policy_iteration.c policy_evaluation.c
