@@ -32,6 +32,7 @@ void value_iteration( const mdp* p_mdp, double epsilon, double gamma,
       if (utilChange > delta) {
         delta = utilChange;
       }
+      printf("delta: %d\n", delta); 
     }
   } while (delta >= epsilon*(1-gamma)/gamma);
 }
