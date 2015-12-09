@@ -15,5 +15,4 @@ void calc_meu( const mdp* p_mdp, unsigned int state, const double* utilities,
 	       double *meu, unsigned int *action )
 {
   // Calculated maximum expected utility (use calc_eu):
-
 }

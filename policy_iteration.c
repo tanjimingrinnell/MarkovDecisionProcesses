@@ -40,7 +40,35 @@
 void policy_iteration( const mdp* p_mdp, double epsilon, double gamma,
 		      unsigned int *policy)
 {
-  
+  double * utilities;
+  utilities = malloc( sizeof(double) * p_mdp->numStates );
+  memset(utilities, 0, sizeof(double) * p_mdp->numStates);
+
+  int unchanged;
+
+  do {
+    policy_evaluation(policy, p_mdp, epsilon, gamma, utilities);
+    unchanged = 1;
+
+    unsigned int state;
+    for (state = 0; state < p_mdp->numStates; state++) {
+      double meu = 0;
+      unsigned int bestAction = 0;
+      calc_meu(p_mdp, state, utilities, &meu, &bestAction);
+      double eu = calc_eu(p_mdp, state, utilities, policy[state]);
+     
+      if (meu > eu) {
+        if (state == 2) {
+          printf("does it get here?\n");
+        }
+        policy[state] = bestAction;
+        unchanged = 0;
+      }
+    }
+
+  } while (!unchanged);
+
+  free(utilities);
 }
 
 /*  Procedure
