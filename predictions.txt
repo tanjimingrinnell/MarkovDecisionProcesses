@@ -1,3 +1,15 @@
 Problem 5.
 
+Predictions:
 We predict the utilities will be more or less a gradient based on the columns. For the actual numbers, we can look at the likely path that would be taken to a goal state. For the squares on the far left, they are about 20 squares away from a terminal 1 state, meaning their utility would be about 1-20(.04) = .2. This is in an ideal case, since there is a change it would take longer, we can reduce this down to about .1 or .05. The square on the far left might get down into the negatives (-0.1) and the square right next to the -1 would probably be around -0.2. In the middle, there are about 10 squares to a terminal state, meaning the ideal utility is around 1-10(-0.4) = .6, reduced to .5 or .4. For states very close to the terminal 1s, we think it will be similar to the 4x3 world, with utilities around .8.
+
+Reflection:
+We were correct in the overall structure (though this is fairly easy to predict). However, we were incorrect in how low the utilities were as they get further from the terminal 1 states. Essentially we were just off on the magnitude of the slope that describes how low the utilities were. We were about .3 or .2 off in the left part, and in the middle we were around .1 or .05 off (though we were much closer here). As it gets closer to the right we were closer since the values were around .8. One thing that surprised us was that the bottom right square and the square in between the 1 and -1 on the right had the same utility. We would expect the one on top to be lower since there is a chance we could go to the -1. Then we realized there's actually no chance of hitting -1 because you can't randomly move backwards, only sideways.
+
+Problem 6.
+
+Predictions:
+This prediction is a lot easier since we don't have to guess exact values. Essentially the policy will be "find your way to the top right terminal 1 and given two equal choices (i.e. they both give you the same amount of progress towards your goal), choose the one that gets you further from a terminal -1". This means everything left of the terminal 1 will be right, except for ones at boundries, which will be down. Then we predict the policy will lead us towards the top right terminal 1 since it is closer (and there's still no chance of hitting the -1 next to it).
+
+Reflections:
+We were more or less correct on this one. We may have overestimated how much a policy would care about getting kind of close to a terminal -1 state, it seemed to not care at all. We think this is because there's such a low chance of ever accidentally getting near one of those states that policy iteration would find an unchanging policy before ever running into this issue. Also we turned out to be correct in that the policy would take us up towards the top terminal 1 instead of the lower one.

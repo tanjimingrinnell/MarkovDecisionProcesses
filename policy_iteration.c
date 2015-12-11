@@ -59,7 +59,6 @@ void policy_iteration( const mdp* p_mdp, double epsilon, double gamma,
      
       if (meu > eu) {
         if (state == 2) {
-          printf("does it get here?\n");
         }
         policy[state] = bestAction;
         unchanged = 0;
