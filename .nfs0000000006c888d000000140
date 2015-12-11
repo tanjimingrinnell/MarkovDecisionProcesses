@@ -66,11 +66,7 @@ void policy_iteration( const mdp* p_mdp, double epsilon, double gamma,
     }
 
   } while (!unchanged);
-  int i;
-  for (i = 0; i < p_mdp->numStates; i++)
-  {
-    printf("%f\n", utilities[i]);
-  }
+
   free(utilities);
 }
 

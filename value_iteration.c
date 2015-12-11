@@ -31,6 +31,10 @@ void value_iteration( const mdp* p_mdp, double epsilon, double gamma,
         double meu = 0;
         unsigned int action = 0;
         calc_meu(p_mdp, state, utilities, &meu, &action);
+        if (state == 60) {
+          printf("state util: %f\n", utilities[state]);
+          printf("meu: %f\n", meu);
+        }
         utilitiesPrime[state] = p_mdp->rewards[state] + gamma*meu;
       }      
 
