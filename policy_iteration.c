@@ -40,17 +40,24 @@
 void policy_iteration( const mdp* p_mdp, double epsilon, double gamma,
 		      unsigned int *policy)
 {
+  // Declare and malloc utilities, then set all entries to 0. 
   double * utilities;
   utilities = malloc( sizeof(double) * p_mdp->numStates );
   memset(utilities, 0, sizeof(double) * p_mdp->numStates);
 
+  // Policy iteration will stop once we've reached a policy that does not
+  //  change upon further reflection.
   int unchanged;
 
   do {
+    // Evaluate current policy, assume we are unchanged
     policy_evaluation(policy, p_mdp, epsilon, gamma, utilities);
     unchanged = 1;
 
     unsigned int state;
+    // Iterate over all states. In each state, check to see if there is a
+    //  better action than the one we current plan to take (i.e. one with
+    //  higher expected utilities). If this is true, we change our policy.
     for (state = 0; state < p_mdp->numStates; state++) {
       double meu = 0;
       unsigned int bestAction = 0;
@@ -58,19 +65,13 @@ void policy_iteration( const mdp* p_mdp, double epsilon, double gamma,
       double eu = calc_eu(p_mdp, state, utilities, policy[state]);
      
       if (meu > eu) {
-        if (state == 2) {
-        }
         policy[state] = bestAction;
         unchanged = 0;
       }
     }
 
   } while (!unchanged);
-  int i;
-  for (i = 0; i < p_mdp->numStates; i++)
-  {
-    printf("%f\n", utilities[i]);
-  }
+
   free(utilities);
 }
 

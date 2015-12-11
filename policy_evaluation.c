@@ -40,27 +40,36 @@ void policy_evaluation( const unsigned int* policy, const mdp* p_mdp,
 			double epsilon, double gamma,
 			double* utilities)
 {
-	
-	double * utilitiesPrime; // successor utilities
+	// Declare and malloc utilities prime ('successor' utilities), then set all
+	//  entries to 0.
+	double * utilitiesPrime;
   utilitiesPrime = malloc( sizeof(double) * p_mdp->numStates );
   memset(utilitiesPrime, 0, sizeof(double) * p_mdp->numStates);
 	
 	double delta;
+	// Need to run this at least once.
 	do {
 		delta = 0;
+		// Loop over states, each time calculating the expected utility of our
+		//  current policy, and learning new utilities from the reward of the
+		//  currend state plus expected utility times a discount factor.
 		unsigned int state;
 		for(state = 0; state < p_mdp->numStates; state++) {
+			// Note that terminal states get slightly different treatment.
 			if (p_mdp->terminal[state]) {
 				utilitiesPrime[state] = p_mdp->rewards[state]; 
 			} else {
 				double eu = calc_eu(p_mdp, state, utilities, policy[state]);
         utilitiesPrime[state] = p_mdp->rewards[state] + gamma*eu;
 			}
+			// We keep track of the highest change in utilities. If this exceeds a
+			//  certain threshhold (see condition for while loop), we end iteration.
 			double utilChange = fabs(utilitiesPrime[state] - utilities[state]);
 			if (utilChange > delta) {
 				delta = utilChange;
 			}			
 		}
+		// Latest learned utilities are copied over to old utilities before repeat.
 		memcpy(utilities, utilitiesPrime, sizeof(double) * p_mdp->numStates);
 	} while (delta > epsilon);
 
