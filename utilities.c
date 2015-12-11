@@ -1,3 +1,24 @@
+/**
+ File
+   utilities.c
+
+ Author
+   Jerod Weinman
+   Box - Noyce Science Division Office
+   CSC261.01
+   Henry Fisher - 3537
+   Jimin Tan - 4465
+
+ Summary
+   Implements calculations of utility used in policy and value iteration.
+
+ Provides
+   double calc_eu( const mdp*  p_mdp, unsigned int state, const double* utilities,
+        const unsigned int action)
+   void calc_meu( const mdp* p_mdp, unsigned int state, const double* utilities,
+         double *meu, unsigned int *action )
+*/
+
 #include "mdp.h"
 #include "utilities.h"
 #include <stdio.h>
@@ -27,9 +48,6 @@ double calc_eu( const mdp*  p_mdp, unsigned int state, const double* utilities,
   double eu = 0;   // Expected utility
   double ***transitionProb = p_mdp->transitionProb;
   unsigned int sPrime;
-  if (state == 60) {
-    printf("utilities[60]: %f\n", utilities[60]);
-  }
   // Calculate expected utility: sum_{s'} P(s'|s,a)*U(s')
   for (sPrime = 0; sPrime < p_mdp->numStates; sPrime++) {
     //Calculating eu using transition probability
@@ -50,9 +68,6 @@ void calc_meu( const mdp* p_mdp, unsigned int state, const double* utilities,
   //loop through all actions to update meu
   for (i = 0; i < numAvailActions; i++) {
   	double eu = calc_eu(p_mdp, state, utilities, availActions[i]);
-    if (state == 60) {
-      printf("eu in meu: %f\n", eu);
-    }
     /*If the expected utility is bigger than the maximum expected 
       utility we replace meu with eu. If this is the first time we
       run this loop, we want to give eu to meu since we don't want it

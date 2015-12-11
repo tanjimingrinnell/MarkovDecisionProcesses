@@ -1,3 +1,22 @@
+/**
+ File
+   policy_iteration.c
+
+ Author
+   Jerod Weinman
+   Box - Noyce Science Division Office
+   CSC261.01
+   Henry Fisher - 3537
+   Jimin Tan - 4465
+
+ Summary
+   Provides policy iteration and driver function.
+
+ Provides
+   void policy_iteration( const mdp* p_mdp, double epsilon, double gamma,
+          unsigned int *policy)
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

@@ -1,3 +1,23 @@
+/**
+ File
+   policy_evaluation.c
+
+ Author
+   Jerod Weinman
+   Box - Noyce Science Division Office
+   CSC261.01
+   Henry Fisher - 3537
+   Jimin Tan - 4465
+
+ Summary
+   Provides policy evaluation, used in policy iteration
+
+ Provides
+   void policy_evaluation( const unsigned int* policy, const mdp* p_mdp,
+			double epsilon, double gamma,
+			double* utilities)
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
